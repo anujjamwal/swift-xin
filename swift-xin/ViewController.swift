@@ -15,6 +15,8 @@ class ViewController: UIViewController {
         
         // Instantiate an IMAP session.
         let session: MCOIMAPSession = MCOIMAPSession()
+        NSLog(session.description)
+        NSLog("You're thinking of the number: " + thinkinOfANumber.description)
     }
 
     override func didReceiveMemoryWarning() {

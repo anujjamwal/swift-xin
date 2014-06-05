@@ -15,12 +15,13 @@
 		FC64B37419401769008100D7 /* libMailCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B36B1940171B008100D7 /* libMailCore-ios.a */; };
 		FC64B37619401770008100D7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B37519401770008100D7 /* CFNetwork.framework */; };
 		FC64B37819401775008100D7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B37719401775008100D7 /* Security.framework */; };
-		FC64B37F19401C62008100D7 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B37E19401C62008100D7 /* GTMHTTPFetcher.m */; };
-		FC64B38219401C87008100D7 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38119401C87008100D7 /* GTMHTTPFetchHistory.m */; };
-		FC64B38519401CA2008100D7 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38419401CA2008100D7 /* GTMOAuth2Authentication.m */; };
-		FC64B38819401CB3008100D7 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38719401CB3008100D7 /* GTMOAuth2SignIn.m */; };
+		FC64B37F19401C62008100D7 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B37E19401C62008100D7 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FC64B38219401C87008100D7 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38119401C87008100D7 /* GTMHTTPFetchHistory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FC64B38519401CA2008100D7 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38419401CA2008100D7 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FC64B38819401CB3008100D7 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38719401CB3008100D7 /* GTMOAuth2SignIn.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FC64B38C19401CD5008100D7 /* GTMOAuth2Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC64B38919401CD5008100D7 /* GTMOAuth2Window.xib */; };
-		FC64B38D19401CD5008100D7 /* GTMOAuth2WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38B19401CD5008100D7 /* GTMOAuth2WindowController.m */; };
+		FC64B38D19401CD5008100D7 /* GTMOAuth2WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38B19401CD5008100D7 /* GTMOAuth2WindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FC64B38F19401DEC008100D7 /* MailboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC64B38E19401DEC008100D7 /* MailboxModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		FC64B38919401CD5008100D7 /* GTMOAuth2Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2Window.xib; sourceTree = "<group>"; };
 		FC64B38A19401CD5008100D7 /* GTMOAuth2WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2WindowController.h; sourceTree = "<group>"; };
 		FC64B38B19401CD5008100D7 /* GTMOAuth2WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2WindowController.m; sourceTree = "<group>"; };
+		FC64B38E19401DEC008100D7 /* MailboxModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				FC64B37C19401C0A008100D7 /* GTMOAuth */,
 				FC64B34319401607008100D7 /* AppDelegate.swift */,
 				FC64B34519401607008100D7 /* ViewController.swift */,
+				FC64B38E19401DEC008100D7 /* MailboxModel.swift */,
 				FC64B34719401607008100D7 /* Main.storyboard */,
 				FC64B34A19401607008100D7 /* Images.xcassets */,
 				FC64B34119401607008100D7 /* Supporting Files */,
@@ -363,6 +366,7 @@
 				FC64B38D19401CD5008100D7 /* GTMOAuth2WindowController.m in Sources */,
 				FC64B37F19401C62008100D7 /* GTMHTTPFetcher.m in Sources */,
 				FC64B38519401CA2008100D7 /* GTMOAuth2Authentication.m in Sources */,
+				FC64B38F19401DEC008100D7 /* MailboxModel.swift in Sources */,
 				FC64B34619401607008100D7 /* ViewController.swift in Sources */,
 				FC64B34419401607008100D7 /* AppDelegate.swift in Sources */,
 			);
