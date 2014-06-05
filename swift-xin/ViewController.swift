@@ -14,9 +14,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mailbox = Mailbox(owner: self)
-        if mailbox {
-            
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +23,12 @@ class ViewController: UIViewController {
 
     @IBAction func logoutButtonPressed(sender : UIBarButtonItem) {
         self.mailbox.logout()
+    }
+    
+    @IBAction func refreshButtonPressed(sender : UIBarButtonItem) {
+        if self.mailbox {
+            self.mailbox.fetchInboxMessages()
+        }
     }
 }
 

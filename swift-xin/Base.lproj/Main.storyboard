@@ -15,6 +15,16 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar appearanceType="aqua" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lT4-ZI-c17">
+                                <rect key="frame" x="0.0" y="436" width="480" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="WEB-oh-UEJ"/>
+                                    <barButtonItem title="寫信" id="7DQ-lV-JpN"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aDg-gT-0Uv"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
@@ -24,7 +34,11 @@
                                 <action selector="logoutButtonPressed:" destination="vXZ-lx-hvc" id="Wh5-sN-4tV"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="XOs-Vt-kcF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="XOs-Vt-kcF">
+                            <connections>
+                                <action selector="refreshButtonPressed:" destination="vXZ-lx-hvc" id="WxV-FJ-Xmv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
