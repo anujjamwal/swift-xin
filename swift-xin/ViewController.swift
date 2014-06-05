@@ -9,14 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var mailbox: Mailbox!
                             
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Instantiate an IMAP session.
-        let session: MCOIMAPSession = MCOIMAPSession()
-        NSLog(session.description)
-        NSLog("You're thinking of the number: " + thinkinOfANumber.description)
+        self.mailbox = Mailbox(owner: self)
+        if mailbox {
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func logoutButtonPressed(sender : UIBarButtonItem) {
+        self.mailbox.logout()
+    }
 }
 

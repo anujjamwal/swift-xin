@@ -4,7 +4,7 @@
 
 #import <MailCore/MailCore.h>
 
-#import "GTMOAuth2WindowController.h"
+#import "GTMOAuth2ViewControllerTouch.h"
 #import "GTMOAuth2SignIn.h"
 #import "GTMOAuth2Authentication.h"
 #import "GTMHTTPFetchHistory.h"
