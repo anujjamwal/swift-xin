@@ -8,12 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    var mailbox: Mailbox!
-                            
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    // Mailbox Model
+    var mailbox: Mailbox?
+    
+    // Table View
+    @IBOutlet var inboxTableView : UITableView
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mailbox = Mailbox(owner: self)
+        self.inboxTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "inboxCell")
+        mailbox = Mailbox(owner: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,14 +27,32 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func composeButtonPressed(sender : UIBarButtonItem) {
+        //let composeViewController = ComposeViewController()
+    }
+    
     @IBAction func logoutButtonPressed(sender : UIBarButtonItem) {
-        self.mailbox.logout()
+        mailbox?.logout()
     }
     
     @IBAction func refreshButtonPressed(sender : UIBarButtonItem) {
-        if self.mailbox {
-            self.mailbox.fetchInboxMessages()
-        }
+        mailbox?.fetchInboxMessages()
+    }
+    
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+        println("Number of emails: \(mailbox?.messages.count)")
+        return mailbox!.messages.count
+    }
+    
+    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("inboxCell") as UITableViewCell
+        cell.textLabel.text = mailbox?.messages[indexPath.row].header.subject
+        println("Got the subject line: \(mailbox?.messages[indexPath.row].header.subject)")
+        return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
 

@@ -18,11 +18,12 @@ class Mailbox: NSObject {
     var auth: GTMOAuth2Authentication?
     var imapSession = MCOIMAPSession()
     var smtpSession = MCOSMTPSession()
+    var messages = MCOIMAPMessage[]()
     
     init (owner: ViewController) {
-        self.masterViewController = owner
+        masterViewController = owner
         super.init()
-        self.startOAuth2()
+        startOAuth2()
     }
     
     // Initiate the login process
@@ -34,14 +35,14 @@ class Mailbox: NSObject {
         // If there is no authentication token available, push a login view controller
         if !auth.refreshToken {
             var authViewController = GTMOAuth2ViewControllerTouch(scope: "https://mail.google.com", clientID: kClientID, clientSecret: kClientSecret, keychainItemName: keychain_item, delegate: self, finishedSelector: "viewController:finishedWithAuth:error:")
-            self.masterViewController.navigationController.pushViewController(authViewController, animated: true)
+            masterViewController.navigationController.pushViewController(authViewController, animated: true)
         } else {
             auth.beginTokenFetchWithDelegate(self, didFinishSelector: "auth:finishedRefreshWithFetcher:error:")
         }
     }
     
     func auth(authorization: GTMOAuth2Authentication, finishedRefreshWithFetcher: GTMHTTPFetcher, error: NSError?) {
-        self.viewController(nil, finishedWithAuth: authorization, error: error)
+        viewController(nil, finishedWithAuth: authorization, error: error)
     }
     
     // Dismiss the login modal view controller
@@ -50,31 +51,31 @@ class Mailbox: NSObject {
             // Authentication failed
         } else {
             // Authentication success
-            self.auth = finishedWithAuth
+            auth = finishedWithAuth
             vc?.dismissModalViewControllerAnimated(true)
-            self.email = finishedWithAuth.userEmail
-            self.accessToken = finishedWithAuth.accessToken
+            email = finishedWithAuth.userEmail
+            accessToken = finishedWithAuth.accessToken
 
-            self.imapSession.authType = MCOAuthTypeXOAuth2
-            self.imapSession.OAuth2Token = accessToken
-            self.imapSession.username = email
-            self.imapSession.hostname = "imap.gmail.com"
-            self.imapSession.port = 993
-            self.imapSession.connectionType = MCOConnectionTypeTLS
+            imapSession.authType = MCOAuthTypeXOAuth2
+            imapSession.OAuth2Token = accessToken
+            imapSession.username = email
+            imapSession.hostname = "imap.gmail.com"
+            imapSession.port = 993
+            imapSession.connectionType = MCOConnectionTypeTLS
             
-            self.smtpSession.authType = MCOAuthTypeXOAuth2
-            self.smtpSession.OAuth2Token = accessToken
-            self.smtpSession.username = email
+            smtpSession.authType = MCOAuthTypeXOAuth2
+            smtpSession.OAuth2Token = accessToken
+            smtpSession.username = email
             
-            self.fetchInboxMessages()
+            fetchInboxMessages()
         }
     }
     
     // Logout
     func logout() {
         GTMOAuth2ViewControllerTouch.removeAuthFromKeychainForName(keychain_item)
-        GTMOAuth2ViewControllerTouch.revokeTokenForGoogleAuthentication(self.auth)
-        self.startOAuth2()
+        GTMOAuth2ViewControllerTouch.revokeTokenForGoogleAuthentication(auth)
+        startOAuth2()
     }
     
     // Fetch inbox messages
@@ -83,14 +84,17 @@ class Mailbox: NSObject {
         var folder = "INBOX"
         var uids: MCOIndexSet = MCOIndexSet(range: MCORangeMake(1, UINT64_MAX))
 
-        var fetchOperation: MCOIMAPFetchMessagesOperation = self.imapSession.fetchMessagesByUIDOperationWithFolder(folder, requestKind: requestKind, uids: uids)
+        var fetchOperation: MCOIMAPFetchMessagesOperation = imapSession.fetchMessagesByUIDOperationWithFolder(folder, requestKind: requestKind, uids: uids)
         fetchOperation.start({error, fetchedMessages, vanishedMessages in
-            //Let's check if there was an error:
             if (error) {
                 println("Error downloading message headers: \(error)")
             } else {
-                //And, let's print out the messages...
-                println("The post man delivereth: \(fetchedMessages)")
+                //println("The post man delivereth: \(fetchedMessages)")
+                for item: AnyObject in fetchedMessages {
+                    self.messages.append(item as MCOIMAPMessage)
+                }
+                println("\(self.messages)")
+                self.masterViewController.inboxTableView.reloadData()
             }
         })
     }
