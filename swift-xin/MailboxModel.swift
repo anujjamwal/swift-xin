@@ -18,7 +18,7 @@ class Mailbox: NSObject {
     var auth: GTMOAuth2Authentication?
     var imapSession = MCOIMAPSession()
     var smtpSession = MCOSMTPSession()
-    var messages = MCOIMAPMessage[]()
+    var messages = [MCOIMAPMessage]()
     
     init (owner: ViewController) {
         masterViewController = owner
@@ -33,7 +33,7 @@ class Mailbox: NSObject {
         var auth: GTMOAuth2Authentication = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychainForName(keychain_item, clientID: kClientID, clientSecret: kClientSecret)
         
         // If there is no authentication token available, push a login view controller
-        if !auth.refreshToken {
+        if !(auth.refreshToken != nil) {
             var authViewController = GTMOAuth2ViewControllerTouch(scope: "https://mail.google.com", clientID: kClientID, clientSecret: kClientSecret, keychainItemName: keychain_item, delegate: self, finishedSelector: "viewController:finishedWithAuth:error:")
             masterViewController.navigationController.pushViewController(authViewController, animated: true)
         } else {
@@ -47,12 +47,12 @@ class Mailbox: NSObject {
     
     // Dismiss the login modal view controller
     func viewController(vc: GTMOAuth2ViewControllerTouch?, finishedWithAuth: GTMOAuth2Authentication, error: NSError?) {
-        if error {
+        if (error != nil) {
             // Authentication failed
         } else {
             // Authentication success
             auth = finishedWithAuth
-            vc?.dismissModalViewControllerAnimated(true)
+            vc?.dismissViewControllerAnimated(true, nil)
             email = finishedWithAuth.userEmail
             accessToken = finishedWithAuth.accessToken
 
@@ -86,7 +86,7 @@ class Mailbox: NSObject {
 
         var fetchOperation: MCOIMAPFetchMessagesOperation = imapSession.fetchMessagesByUIDOperationWithFolder(folder, requestKind: requestKind, uids: uids)
         fetchOperation.start({error, fetchedMessages, vanishedMessages in
-            if (error) {
+            if (error != nil) {
                 println("Error downloading message headers: \(error)")
             } else {
                 //println("The post man delivereth: \(fetchedMessages)")
